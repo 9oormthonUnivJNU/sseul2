@@ -4,25 +4,19 @@ import hello.hello_spring.domain.Member;
 import hello.hello_spring.repository.MemberRepository;
 import hello.hello_spring.repository.MemoryMemberRepository;
 import org.junit.jupiter.api.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLException;
 
 import static org.assertj.core.api.Assertions.*;
 
-class MemberServiceTest {
-    MemberService memberService;
-    MemoryMemberRepository memoryRepository;
-
-    @BeforeEach
-    public void beforeEach(){
-        memoryRepository = new MemoryMemberRepository();
-        memberService = new MemberService(memoryRepository);
-    }
-
-    @AfterEach
-    public void afterEach(){
-        memoryRepository.clearStore();
-    }
+@SpringBootTest
+@Transactional
+class MemberServiceIntegrationTest {
+    @Autowired MemberService memberService;
+    @Autowired MemberRepository memberRepository;
 
     @Test
     @DisplayName("회원가입")
@@ -55,17 +49,5 @@ class MemberServiceTest {
 
         // then
         assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.");
-    }
-
-    @Test
-    @DisplayName("전체 회원 조회")
-    void findMembers() {
-        // 여기에 테스트 코드 작성 예정
-    }
-
-    @Test
-    @DisplayName("회원 조회")
-    void findOne() {
-        // 여기에 테스트 코드 작성 예정
     }
 }
