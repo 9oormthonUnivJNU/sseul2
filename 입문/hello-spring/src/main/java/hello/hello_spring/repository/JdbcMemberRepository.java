@@ -40,7 +40,7 @@ public class JdbcMemberRepository implements MemberRepository {
         }
     }
     @Override
-    public Optional<Member> findMyId(Long id) throws SQLException {
+    public Optional<Member> findById(Long id) throws SQLException {
         String sql = "select * from member where id = ?";
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -89,7 +89,7 @@ public class JdbcMemberRepository implements MemberRepository {
         }
     }
     @Override
-    public Optional<Member> findMyName(String name) throws SQLException {
+    public Optional<Member> findByName(String name) throws SQLException {
         String sql = "select * from member where name = ?";
         Connection conn = null;
         PreparedStatement pstmt = null;

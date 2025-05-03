@@ -6,6 +6,7 @@ import hello.hello_spring.repository.MemoryMemberRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLException;
@@ -20,10 +21,12 @@ class MemberServiceIntegrationTest {
 
     @Test
     @DisplayName("회원가입")
+    @Commit
     void join() throws SQLException {
         // given
+        int i = 300;
         Member member = new Member();
-        member.setName("spring");
+        member.setName("spring"+ i++);
 
         // when
         Long saveId = memberService.join(member);
@@ -41,7 +44,7 @@ class MemberServiceIntegrationTest {
         member1.setName("spring");
 
         Member member2 = new Member();
-        member2.setName("spring");
+        member1.setName("spring");
 
         // when
         memberService.join(member1);

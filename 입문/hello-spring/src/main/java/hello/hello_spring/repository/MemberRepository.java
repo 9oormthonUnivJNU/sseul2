@@ -9,8 +9,8 @@ import java.util.Optional;
 
 public interface MemberRepository {
     Member save(Member member) throws SQLException;
-    Optional<Member> findMyId(Long id) throws SQLException;
-    Optional<Member> findMyName(String name) throws SQLException;
+    Optional<Member> findById(Long id) throws SQLException;
+    Optional<Member> findByName(String name) throws SQLException;
 
     List<Member> findAll() throws SQLException;
 }
