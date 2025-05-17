@@ -3,6 +3,7 @@ package jpabook.jpashop.domain.item;
 import jakarta.persistence.*;
 import jpabook.jpashop.domain.Category;
 import jpabook.jpashop.domain.OrderItem;
+import jpabook.jpashop.exception.NotEnoughStockException;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,11 +30,26 @@ public abstract class Item {
     @OneToMany(mappedBy = "item")
     private Collection<OrderItem> orderItem;
 
-    public Collection<OrderItem> getOrderItem() {
-        return orderItem;
+//    public Collection<OrderItem> getOrderItem() {
+//        return orderItem;
+//    }
+//
+//    public void setOrderItem(Collection<OrderItem> orderItem) {
+//        this.orderItem = orderItem;
+//    }
+
+    // 비즈니스 로직
+
+    /** stock 증가 +*/
+    public void addStock(int quantity){
+        this.stockQuantity += quantity;
     }
 
-    public void setOrderItem(Collection<OrderItem> orderItem) {
-        this.orderItem = orderItem;
+    public void removeStock(int quantity){
+        int resultStock = this.stockQuantity - quantity;
+        if(resultStock < 0){
+            throw new NotEnoughStockException("need more stock");
+        }
+        this.stockQuantity = resultStock;
     }
 }
