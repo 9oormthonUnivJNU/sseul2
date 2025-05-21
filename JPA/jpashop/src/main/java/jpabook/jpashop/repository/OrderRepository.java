@@ -89,5 +89,4 @@ public class OrderRepository {
         List<Order> resultList = query.getResultList();
         return resultList;
     }
-
 }
